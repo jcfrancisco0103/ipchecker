@@ -28,6 +28,17 @@ python bot.py
 
 6. Open the invite link printed in the console and add the bot to your server.
 
+## Docker
+
+With Docker running and `.env` filled in:
+
+```powershell
+docker compose up -d --build
+docker compose logs -f
+```
+
+Stop it with `docker compose down`. The `/watch` list is kept in a Docker volume, so it survives a restart. The token is read from `.env` at startup and is not copied into the image.
+
 ## Commands
 
 - `/status` checks the Manila server.

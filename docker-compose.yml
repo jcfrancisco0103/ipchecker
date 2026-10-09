@@ -1,0 +1,15 @@
+services:
+  bot:
+    build: .
+    env_file:
+      - .env
+    environment:
+      WATCHES_PATH: /data/watches.json
+    volumes:
+      - ipchecker-data:/data
+    restart: unless-stopped
+    cap_add:
+      - NET_RAW
+
+volumes:
+  ipchecker-data:

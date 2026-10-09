@@ -27,7 +27,8 @@ from discord import app_commands
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent
-WATCHES_PATH = BASE_DIR / "watches.json"
+load_dotenv(BASE_DIR / ".env")
+WATCHES_PATH = Path(os.getenv("WATCHES_PATH", str(BASE_DIR / "watches.json")))
 PING_COUNT = 2
 PING_TIMEOUT_MS = 2000
 
@@ -451,6 +452,7 @@ class IPChecker(discord.Client):
                 if channel_id in self._watch_tasks and not self._watch_tasks[channel_id].done()
             ]
         }
+        WATCHES_PATH.parent.mkdir(parents=True, exist_ok=True)
         temporary = WATCHES_PATH.with_suffix(".json.tmp")
         temporary.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         temporary.replace(WATCHES_PATH)
